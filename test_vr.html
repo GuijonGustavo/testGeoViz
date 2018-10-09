@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+    .link {
+        fill: none;
+        stroke: #555;
+        stroke-opacity: 0.4;
+        stroke-width: 1px;
+    }
+    text {
+        font-family: "Arial Black", Gadget, sans-serif;
+        fill: black;
+        font-weight: bold;
+        font-size: 14px
+    }
+
+    .xAxis .tick text{
+        fill: black;
+    }
+    .grid .tick line{
+        stroke: grey;
+        stroke-dasharray: 5, 10;
+        opacity: 0.7;
+    }
+    .grid path{
+        stroke-width: 0;
+    }
+
+    .node circle {
+        fill: #999;
+    }
+    .node--internal circle {
+        fill: #555;
+    }
+    .node--internal text {
+        font-size: 16px;
+        text-shadow: 0 2px 0 #fff, 0 -2px 0 #fff, 2px 0 0 #fff, -2px 0 0 #fff;
+    }
+    .node--leaf text {
+        fill: white;
+    }
+    .ballG text {
+        fill: white;
+    }
+
+    .shadow {
+        -webkit-filter: drop-shadow( -1.5px -1.5px 1.5px #000 );
+        filter: drop-shadow( -1.5px -1.5px 1.5px #000 );
+    }
+</style>
+
+<body>
+<span style="color:#563B7E">
+	<h1 style="text-align:center">Test de inmersión y exploración de GeoViz<h1> </span>
+	<h1 style="text-align:center">26, 27 y 28 de septiembre de 2018.<h1> </span>
+		<h1 style="text-align:center">Universidad de la Comunicación.</ br><h1> </span>
+	<h2 style="text-align:center">Papeletas: 96<h1> </span>
+	<h2 style="text-align:center">(Nota: aproximadamente el 11% de preguntas del total no se contestaron)<h1> </span>
+    <svg width="1884" height="2600"></svg>
+
+<script src="http://d3js.org/d3.v3.min.js"></script>
+  <script src="https://rawgit.com/jasondavies/d3-cloud/master/build/d3.layout.cloud.js"></script>
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script>
+
+    // main svg
+    var svg = d3.select("svg"),
+            width = +svg.attr("width"),
+            height = +svg.attr("height"),
+            g = svg.append("g").attr("transform", "translate(20,0)");       // move right 20px.
+
+    // x-scale and x-axis
+    var experienceName = ["", "10","20","30","40","50","60","70","80","90","100"];
+    var formatSkillPoints = function (d) {
+        return experienceName[d];
+    }
+    var xScale =  d3.scaleLinear()
+            .domain([0,10])
+            .range([0, 600]); //Largo de las barras
+
+    var xAxis = d3.axisTop()
+            .scale(xScale)
+            .ticks(5)
+            .tickFormat(formatSkillPoints);
+
+    // Setting up a way to handle the data
+    var tree = d3.cluster()                 // This D3 API method setup the Dendrogram datum position.
+            .size([height, width - 760])    // Total width - bar chart width = Dendrogram chart width
+            .separation(function separate(a, b) {
+                return a.parent == b.parent            // 2 levels tree grouping for category
+                || a.parent.parent == b.parent
+                || a.parent == b.parent.parent ? 0.4 : 0.8; //Separación entre barras
+            });
+
+    var stratify = d3.stratify()            // This D3 API method gives cvs file flat data array dimensions.
+            .parentId(function(d) { return d.id.substring(0, d.id.lastIndexOf(".")); });
+
+    d3.csv("skillsdata.csv", row, function(error, data) {
+        if (error) throw error;
+
+        var root = stratify(data);
+        tree(root);
+
+        // Draw every datum a line connecting to its parent.
+        var link = g.selectAll(".link")
+                .data(root.descendants().slice(1))
+                .enter().append("path")
+                .attr("class", "link")
+                .attr("d", function(d) {
+                    return "M" + d.y + "," + d.x
+                            + "C" + (d.parent.y + 100) + "," + d.x
+                            + " " + (d.parent.y + 100) + "," + d.parent.x
+                            + " " + d.parent.y + "," + d.parent.x;
+                });
+
+        // Setup position for every datum; Applying different css classes to parents and leafs.
+        var node = g.selectAll(".node")
+                .data(root.descendants())
+                .enter().append("g")
+                .attr("class", function(d) { return "node" + (d.children ? " node--internal" : " node--leaf"); })
+                .attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; });
+
+        // Draw every datum a small circle.
+        node.append("circle")
+                    .style("fill","617CBE") //Color de los nodos
+                .attr("r", 4);
+
+        // Setup G for every leaf datum.
+        var leafNodeG = g.selectAll(".node--leaf")
+                .append("g")
+                .attr("class", "node--leaf-g")
+                .attr("transform", "translate(" + 8 + "," + -13 + ")");
+
+        leafNodeG.append("rect")
+                .attr("class","shadow")
+                .style("fill", function (d) {return d.data.color;})
+                .attr("width", 2)
+                .attr("height", 30)
+                .attr("rx", 2)
+                .attr("ry", 2)
+                .transition()
+                    .duration(800)
+                    .attr("width", function (d) {return xScale(d.data.value);});
+
+        leafNodeG.append("text")
+                .attr("dy", 19.5)
+                .attr("x", 8)
+                .style("text-anchor", "start")
+                .text(function (d) {
+                    return d.data.id.substring(d.data.id.lastIndexOf(".") + 1);
+                });
+
+        // Write down text for every parent datum
+        var internalNode = g.selectAll(".node--internal");
+        internalNode.append("text")
+                .attr("y", -10)
+                .style("text-anchor", "middle")
+                .text(function (d) {
+                    return d.data.id.substring(d.data.id.lastIndexOf(".") + 1);
+                });
+
+        // Attach axis on top of the first leaf datum.
+        var firstEndNode = g.select(".node--leaf");
+            firstEndNode.insert("g")
+                    .attr("class","xAxis")
+                    .attr("transform", "translate(" + 7 + "," + -14 + ")")
+                    .call(xAxis);
+
+            // tick mark for x-axis
+            firstEndNode.insert("g")
+                    .attr("class", "grid")
+                    .attr("transform", "translate(7," + (height - 15) + ")")
+                    .call(d3.axisBottom()
+                            .scale(xScale)
+                            .ticks(5)
+                            .tickSize(-height, 0, 0)
+                            .tickFormat("")
+                    );
+
+        // Emphasize the y-axis baseline.
+        svg.selectAll(".grid").select("line")
+                .style("stroke-dasharray","20,1")
+                .style("stroke","black");
+
+        // The moving ball
+        var ballG = svg.insert("g")
+                .attr("class","ballG")
+                .attr("transform", "translate(" + 1100 + "," + height/2 + ")");
+        ballG.insert("circle")
+                .attr("class","shadow")
+                .style("fill","steelblue")
+                .attr("r", 5);
+        ballG.insert("text")
+                .style("text-anchor", "middle")
+                .attr("dy",5)
+                .text("0.0");
+
+        // Animation functions for mouse on and off events.
+        d3.selectAll(".node--leaf-g")
+                .on("mouseover", handleMouseOver)
+                .on("mouseout", handleMouseOut);
+
+        function handleMouseOver(d) {
+            var leafG = d3.select(this);
+
+            leafG.select("rect")
+                    .attr("stroke","#4D4D4D")
+                    .attr("stroke-width","2");
+
+
+            var ballGMovement = ballG.transition()
+                    .duration(400)
+                    .attr("transform", "translate(" + (d.y
+                            + xScale(d.data.value) + 90) + ","
+                            + (d.x + 1.5) + ")");
+
+            ballGMovement.select("circle")
+                    .style("fill", d.data.color)
+                    .attr("r", 18);
+
+            ballGMovement.select("text")
+                    .delay(300)
+                    .text(Number(d.data.value).toFixed(1)*10); //Multiplicar por 10 para que sea el 100%
+        }
+        function handleMouseOut() {
+            var leafG = d3.select(this);
+
+            leafG.select("rect")
+                    .attr("stroke-width","0");
+        }
+
+    });
+
+    function row(d) {
+        return {
+            id: d.id,
+            value: +d.value,
+            color: d.color
+        };
+    }
+</script>
+<div style="color:#1169AE">
+<h3>¿Te gustaría conocer más ecosistemas de México de esta manera? ¿Cuáles?<h3>
+		<h3>Respuestas (varias):</h3>
+<script>
+
+//Simple animated example of d3-cloud - https://github.com/jasondavies/d3-cloud
+//Based on https://github.com/jasondavies/d3-cloud/blob/master/examples/simple.html
+
+// Encapsulate the word cloud functionality
+function wordCloud(selector) {
+
+    var fill = d3.scale.category20();
+
+    //Construct the word cloud's SVG element
+    var svg = d3.select(selector).append("svg")
+        .attr("width", 500)
+        .attr("height", 500)
+        .append("g")
+        .attr("transform", "translate(250,250)");
+
+
+    //Draw the word cloud
+    function draw(words) {
+        var cloud = svg.selectAll("g text")
+                        .data(words, function(d) { return d.text; })
+
+        //Entering words
+        cloud.enter()
+            .append("text")
+            .style("font-family", "Impact")
+            .style("fill", function(d, i) { return fill(i); })
+            .attr("text-anchor", "middle")
+            .attr('font-size', 1)
+            .text(function(d) { return d.text; });
+
+        //Entering and existing words
+        cloud
+            .transition()
+                .duration(600)
+                .style("font-size", function(d) { return d.size + "px"; })
+                .attr("transform", function(d) {
+                    return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
+                })
+                .style("fill-opacity", 1);
+
+        //Exiting words
+        cloud.exit()
+            .transition()
+                .duration(200)
+                .style('fill-opacity', 1e-6)
+                .attr('font-size', 1)
+                .remove();
+    }
+
+
+    //Use the module pattern to encapsulate the visualisation code. We'll
+    // expose only the parts that need to be public.
+    return {
+
+        //Recompute the word cloud for a new set of words. This method will
+        // asycnhronously call draw when the layout has been computed.
+        //The outside world will need to call this function, so make it part
+        // of the wordCloud return value.
+        update: function(words) {
+            d3.layout.cloud().size([500, 500])
+                .words(words)
+                .padding(5)
+                .rotate(function() { return ~~(Math.random() * 2) * 90; })
+                .font("Impact")
+                .fontSize(function(d) { return d.size; })
+                .on("end", draw)
+                .start();
+        }
+    }
+
+}
+
+//Some sample data - http://en.wikiquote.org/wiki/Opening_lines
+var words = [
+    "Veracruz, Cabos, Selva, Ballenas, Cenotes, Cuevas, Barrancas, Desierto, Playas, BajaCalifornia, Manglares, Bosques, Chiapas, Mazatlán, Abismo, Humedal, Ríos, Oaxaca, Coral, Delfines, Cancún, Pácifico, Mérida, Yucatán"
+]
+
+//Prepare one of the sample sentences by removing punctuation,
+// creating an array of words and computing a random size attribute.
+function getWords(i) {
+    return words[i]
+            .replace(/[!\.,:;\?]/g, '')
+            .split(' ')
+            .map(function(d) {
+                return {text: d, size: 10 + Math.random() * 60};
+            })
+}
+
+//This method tells the word cloud to redraw with a new set of words.
+//In reality the new words would probably come from a server request,
+// user input or some other source.
+function showNewWords(vis, i) {
+    i = i || 0;
+
+    vis.update(getWords(i ++ % words.length))
+    setTimeout(function() { showNewWords(vis, i + 1)}, 2000)
+}
+
+//Create a new instance of the word cloud visualisation.
+var myWordCloud = wordCloud('body');
+
+//Start cycling through the demo data
+showNewWords(myWordCloud);
+
+
+</script>
+
+		</div> 
+</body>
+		</html>
+
+

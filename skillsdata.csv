@@ -1,0 +1,76 @@
+id,value,color
+Test,
+Test.Inmersión,
+Test.Inmersión.Tuve la sensación de estar en el mundo generado por computadora,
+Test.Inmersión.Tuve la sensación de estar en el mundo generado por computadora.Nada,2.3,#D6BA33
+Test.Inmersión.Tuve la sensación de estar en el mundo generado por computadora.Mucho,5.8,#1169AE
+Test.Inmersión.De alguna manera sentí que el mundo virtual me envolvía,
+Test.Inmersión.De alguna manera sentí que el mundo virtual me envolvía.Desacuerdo,1.6,#D6BA33
+Test.Inmersión.De alguna manera sentí que el mundo virtual me envolvía.De acuerdo,6.9,#1169AE
+Test.Inmersión.Solo sentí que estaba percibiendo imágenes,
+Test.Inmersión.Solo sentí que estaba percibiendo imágenes.Desacuerdo,6.0,#D6BA33
+Test.Inmersión.Solo sentí que estaba percibiendo imágenes.De acuerdo,1.9,#1169AE
+Test.Inmersión.No me sentí inmerso en el espacio virtual,
+Test.Inmersión.No me sentí inmerso en el espacio virtual.No,0.8,#D6BA33
+Test.Inmersión.No me sentí inmerso en el espacio virtual.Me sentí presente,6.7,#1169AE
+Test.Inmersión.Tuve la sensación de estar activo dentro del espacio virtual,
+Test.Inmersión.Tuve la sensación de estar activo dentro del espacio virtual.Desacuerdo,1.5,#D6BA33
+Test.Inmersión.Tuve la sensación de estar activo dentro del espacio virtual.De acuerdo,6.3,#1169AE
+Test.Inmersión.Me sentí presente en el espacio virtual,
+Test.Inmersión.Me sentí presente en el espacio virtual.Desacuerdo,1.2,#D6BA33
+Test.Inmersión.Me sentí presente en el espacio virtual.De acuerdo,7.0,#1169AE
+Test.Inmersión.¿Qué tan conciente estuviste del mundo real?,
+Test.Inmersión.¿Qué tan conciente estuviste del mundo real?.Extremadamente consciente,2.8,#D6BA33
+Test.Inmersión.¿Qué tan conciente estuviste del mundo real?.Moderadamente consciente,5.2,#1169AE
+Test.Inmersión.No estaba al tanto de mi entorno real,
+Test.Inmersión.No estaba al tanto de mi entorno real.Desacuerdo,3.4,#D6BA33
+Test.Inmersión.No estaba al tanto de mi entorno real.De acuerdo,4.8,#1169AE
+Test.Inmersión.A pesar de todo presté atención al entorno real,
+Test.Inmersión.A pesar de todo presté atención al entorno real.Desacuerdo,3.1,#D6BA33
+Test.Inmersión.A pesar de todo presté atención al entorno real.De acuerdo,5.0,#1169AE
+Test.Inmersión.Estuve completamente cautivado por el mundo virtual,
+Test.Inmersión.Estuve completamente cautivado por el mundo virtual.Desacuerdo,1.5,#D6BA33
+Test.Inmersión.Estuve completamente cautivado por el mundo virtual.De acuerdo,6.6,#1169AE
+Test.Inmersión.¿Qué tan real te pareció el mundo virtual?,
+Test.Inmersión.¿Qué tan real te pareció el mundo virtual?.Completamente real,7,#D6BA33
+Test.Inmersión.¿Qué tan real te pareció el mundo virtual?.Irreal,1.3,#1169AE
+Test.Inmersión.¿En que medida tu experiencia en el MV es consistente con el MR?,
+Test.Inmersión.¿En que medida tu experiencia en el MV es consistente con el MR?.Moderadamente consistente,4.6,#D6BA33
+Test.Inmersión.¿En que medida tu experiencia en el MV es consistente con el MR?.Muy consistente,3.4,#1169AE
+Test.Inmersión.El mundo virtual parecía más realista que el mundo real,
+Test.Inmersión.El mundo virtual parecía más realista que el mundo real.Desacuerdo,5.7,#D6BA33
+Test.Inmersión.El mundo virtual parecía más realista que el mundo real.De acuerdo,2.2,#1169AE
+Test.Exploración,
+Test.Exploración.¿Consideras que esta experiencia te permitió conocer el arrecife como es en la realidad?,
+Test.Exploración.¿Consideras que esta experiencia te permitió conocer el arrecife como es en la realidad?.Demasiado,4.9,#617CBE
+Test.Exploración.¿Consideras que esta experiencia te permitió conocer el arrecife como es en la realidad?.Algo,3.6,#EB2C2F
+Test.Exploración.¿Te parece que los objetos que percibiste son artificiales o reales?,
+Test.Exploración.¿Te parece que los objetos que percibiste son artificiales o reales?.Demasiado,1.7,#617CBE
+Test.Exploración.¿Te parece que los objetos que percibiste son artificiales o reales?.Algo,6.8,#EB2C2F
+Test.Exploración.¿Tuviste la sensación de estar inmerso en el arrecife?,
+Test.Exploración.¿Tuviste la sensación de estar inmerso en el arrecife?.Demasiado,5.1,#617CBE
+Test.Exploración.¿Tuviste la sensación de estar inmerso en el arrecife?.Algo,3.3,#EB2C2F
+Test.Exploración.Así como conociste el arrecife ¿qué opinión tienes ahora de él?,
+Test.Exploración.Así como conociste el arrecife ¿qué opinión tienes ahora de él?.Debe ser así,7.8,#617CBE
+Test.Exploración.Así como conociste el arrecife ¿qué opinión tienes ahora de él?.No es así,0.5,#EB2C2F
+Test.Exploración.¿El comportamiento de los peces es realista o artificial?,
+Test.Exploración.¿El comportamiento de los peces es realista o artificial?.Demasiado realista,2.4,#617CBE
+Test.Exploración.¿El comportamiento de los peces es realista o artificial?.Realista,5.9,#EB2C2F
+Test.Exploración.¿La información que se te proporciona sobre las especies fue adecuada?,
+Test.Exploración.¿La información que se te proporciona sobre las especies fue adecuada?.Muy adecuada,5.5,#617CBE
+Test.Exploración.¿La información que se te proporciona sobre las especies fue adecuada?.Mucha información,1.4,#EB2C2F
+Test.Exploración.¿La información que se te proporciona sobre las especies fue adecuada?.Falta,1.5,#617CBE
+Test.Exploración.¿Conoces ahora más de los arrecifes que antes?,
+Test.Exploración.¿Conoces ahora más de los arrecifes que antes?.Demasiado,3.0,#617CBE
+Test.Exploración.¿Conoces ahora más de los arrecifes que antes?.Algo,5.0,#EB2C2F
+Test.Exploración.Antes de tu experiencia en el arrecife virtual ¿imaginaste que sería así?,
+Test.Exploración.Antes de tu experiencia en el arrecife virtual ¿imaginaste que sería así?.Sobrepasó mis expectativas,6.2,#617CBE
+Test.Exploración.Antes de tu experiencia en el arrecife virtual ¿imaginaste que sería así?.No sobrepasó,2.3,#EB2C2F
+Test.Exploración.¿Recomiendas conocer el arrecife por medio de esta experiencia?,
+Test.Exploración.¿Recomiendas conocer el arrecife por medio de esta experiencia?.Demasiado,7.1,#617CBE
+Test.Exploración.¿Recomiendas conocer el arrecife por medio de esta experiencia?.Algo,1.0,#EB2C2F
+Test.Exploración.¿Te gustaría conocer más ecosistemas de esta manera?¿Cuáles?,
+Test.Exploración.¿Te gustaría conocer más ecosistemas de esta manera?¿Cuáles?.Manglares,1.0,#617CBE
+Test.Exploración.¿Te gustaría conocer más ecosistemas de esta manera?¿Cuáles?.Bosques,0.9,#EB2C2F
+Test.Exploración.¿Te gustaría conocer más ecosistemas de esta manera?¿Cuáles?.Desierto,1.0,#617CBE
+Test.Exploración.¿Te gustaría conocer más ecosistemas de esta manera?¿Cuáles?.Selva,1.6,#EB2C2F
